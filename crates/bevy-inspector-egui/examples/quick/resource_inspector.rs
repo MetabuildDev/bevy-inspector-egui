@@ -3,6 +3,7 @@ use bevy::prelude::*;
 use bevy_inspector_egui::prelude::*;
 use bevy_inspector_egui::quick::ResourceInspectorPlugin;
 use bevy_utils::hashbrown::HashSet;
+use bevy_utils::HashMap;
 
 #[derive(Reflect, Resource, Default, InspectorOptions)]
 #[reflect(Resource, InspectorOptions)]
@@ -11,6 +12,7 @@ struct Configuration {
     #[inspector(min = 0.0, max = 1.0)]
     option: f32,
     set: HashSet<String>,
+    map: HashMap<String, String>,
 }
 
 fn main() {
@@ -26,6 +28,11 @@ fn main() {
                 "Einar".to_string(),
                 "Olaf".to_string(),
                 "Harald".to_string(),
+            ]),
+            map: HashMap::from([
+                ("Tomato".to_string(), "Red".to_string()),
+                ("Cucumber".to_string(), "Green".to_string()),
+                ("Pineapple".to_string(), "Yellow".to_string()),
             ]),
             ..default()
         })

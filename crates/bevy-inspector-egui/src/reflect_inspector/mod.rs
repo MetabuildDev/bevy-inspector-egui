@@ -462,6 +462,14 @@ fn ui_for_empty_set(ui: &mut egui::Ui) {
     ui.vertical_centered(|ui| ui.label("(Empty Set)"));
 }
 
+#[derive(Debug)]
+struct MapKeyOrdering(Vec<Box<dyn PartialReflect>>);
+impl Clone for MapKeyOrdering {
+    fn clone(&self) -> Self {
+        Self(self.0.iter().map(|k| k.clone_value()).collect())
+    }
+}
+
 struct MapDraftElement {
     key: Box<dyn PartialReflect>,
     value: Box<dyn PartialReflect>,
@@ -993,11 +1001,18 @@ impl InspectorUi<'_, '_> {
         _options: &dyn Any,
     ) -> bool {
         let mut changed = false;
+        let map_order_id = id.with("map_order");
         let map_draft_id = id.with("map_draft");
         if map.is_empty() {
             ui.label("(Empty Map)");
             ui.end_row();
         }
+        let mut ordering = ui.data(|data| {
+            data.get_temp::<MapKeyOrdering>(map_order_id)
+                .unwrap_or_else(|| {
+                    MapKeyOrdering(map.iter().map(|(k, _)| k.clone_value()).collect())
+                })
+        });
         let draft_clone = ui.data_mut(|data| {
             data.get_temp_mut_or_default::<Option<MapDraftElement>>(map_draft_id)
                 .to_owned()
@@ -1005,9 +1020,9 @@ impl InspectorUi<'_, '_> {
         let mut to_delete: Option<usize> = None;
 
         egui::Grid::new(id).show(ui, |ui| {
-            for i in 0..map.len() {
-                if let Some((key, value)) = map.get_at_mut(i) {
-                    self.ui_for_reflect_readonly_with_options(key, ui, id.with(i), &());
+            for (i, key) in ordering.0.iter().enumerate() {
+                if let Some(value) = map.get_mut(&**key) {
+                    self.ui_for_reflect_readonly_with_options(&**key, ui, id.with(i), &());
                     changed |= self.ui_for_reflect_with_options(value, ui, id.with(i), &());
                     if remove_button(ui).on_hover_text("Remove element").clicked() {
                         to_delete = Some(i);
@@ -1058,8 +1073,10 @@ impl InspectorUi<'_, '_> {
                             .data_mut(|data| data.get_temp::<Option<MapDraftElement>>(map_draft_id))
                             .flatten();
                         if let Some(draft) = draft {
-                            map.insert_boxed(draft.key, draft.value);
+                            map.insert_boxed(draft.key.clone_value(), draft.value);
                             ui.data_mut(|data| data.remove_by_type::<Option<MapDraftElement>>());
+                            ordering.0.push(draft.key);
+                            ui.data_mut(|data| data.insert_temp(map_order_id, ordering.clone()));
                         }
                         changed = true;
                     }
@@ -1073,11 +1090,10 @@ impl InspectorUi<'_, '_> {
         });
 
         if let Some(index) = to_delete {
-            // Can't have both an immutable borrow of the map's key,
-            // and mutably borrow the map to delete the element.
-            let cloned_key = map.get_at(index).map(|(key, _)| key.clone_value());
-            if let Some(key) = cloned_key {
-                map.remove(key.as_ref());
+            if let Some(key) = ordering.0.get(index) {
+                map.remove(&**key);
+                ordering.0.remove(index);
+                ui.data_mut(|data| data.insert_temp(map_order_id, ordering));
             }
         }
 
