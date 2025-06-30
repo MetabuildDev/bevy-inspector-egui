@@ -38,29 +38,29 @@ features = ["winit/x11"]
 winit = { version = "0.30.0", default-features = false }
 
 bevy-inspector-egui-derive = { version = "0.31.0", path = "../bevy-inspector-egui-derive" }
-bevy_app = { version = "0.16.0" }
-bevy_asset = { version = "0.16.0" }
-bevy_color = { version = "0.16.0" }
-bevy_platform = { version = "0.16.0" }
+bevy_app = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
+bevy_asset = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
+bevy_color = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
+bevy_platform = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
 #bevy_core = { version = "0.16.0" }
-bevy_ecs = { version = "0.16.0" }
+bevy_ecs = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
 #bevy_hierarchy = { version = "0.16.0" }
-bevy_log = { version = "0.16.0" }
-bevy_math = { version = "0.16.0" }
-bevy_reflect = { version = "0.16.0" }
-bevy_state = { version = "0.16.0" }
-bevy_time = { version = "0.16.0" }
-bevy_utils = { version = "0.16.0" }
-bevy_window = { version = "0.16.0" }
+bevy_log = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
+bevy_math = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
+bevy_reflect = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
+bevy_state = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
+bevy_time = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
+bevy_utils = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
+bevy_window = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5" }
 
-bevy_render = { version = "0.16.0", optional = true }
-bevy_core_pipeline = { version = "0.16.0", optional = true }
-bevy_pbr = { version = "0.16.0", optional = true }
-bevy_image = { version = "0.16.0", optional = true }
+bevy_render = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5", optional = true }
+bevy_core_pipeline = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5", optional = true }
+bevy_pbr = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5", optional = true }
+bevy_image = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5", optional = true }
 
 egui = "0.31"
 
-bevy_egui = { version = "0.34.0", default-features = false }
+bevy_egui = { git = "https://github.com/MetabuildDev/bevy_egui", rev = "1e835dbff3b2a03a09bd10a73e270ea3aa5cf345", default-features = false }
 
 bytemuck = "1.16.0"
 image = { version = "0.25", default-features = false }
@@ -71,7 +71,7 @@ disqualified = "1.0.0"
 uuid = "1.11.0"
 
 [dev-dependencies]
-bevy = { version = "0.16.0", default-features = false, features = [
+bevy = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5", default-features = false, features = [
     "std",
     "x11",
     "bevy_winit",
@@ -88,7 +88,7 @@ bevy = { version = "0.16.0", default-features = false, features = [
     "ktx2",
 ] }
 egui_dock = "0.16"
-bevy_math = { version = "0.16.0", features = ["mint"] }
+bevy_math = { git = "https://github.com/MetabuildDev/bevy", rev = "929c0174f4358e041385f171d1b227745c5d94b5", features = ["mint"] }
 transform-gizmo-egui = "0.5"
 # bevy_mod_picking = { git = "https://github.com/aevyrie/bevy_mod_picking", rev = "554649a951689dce66d0d759839b326874e8826f", default-features = false, features = ["backend_raycast", "backend_egui", "backend_sprite"] }
 # bevy_framepace = "0.11"

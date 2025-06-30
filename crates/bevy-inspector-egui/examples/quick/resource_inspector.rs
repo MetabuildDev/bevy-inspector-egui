@@ -1,3 +1,4 @@
+use bevy::platform::collections::HashMap;
 use bevy::{
     input::common_conditions::input_toggle_active, platform::collections::HashSet, prelude::*,
 };
@@ -10,6 +11,7 @@ struct Configuration {
     #[inspector(min = 0.0, max = 1.0)]
     option: f32,
     set: HashSet<String>,
+    map: HashMap<String, String>,
 }
 
 fn main() {
@@ -31,6 +33,11 @@ fn main() {
             ]
             .into_iter()
             .collect(),
+            map: HashMap::from([
+                ("Tomato".to_string(), "Red".to_string()),
+                ("Cucumber".to_string(), "Green".to_string()),
+                ("Pineapple".to_string(), "Yellow".to_string()),
+            ]),
             ..default()
         })
         .register_type::<Configuration>()
