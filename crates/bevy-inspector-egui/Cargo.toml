@@ -60,7 +60,7 @@ bevy_image = { git = "https://github.com/MetabuildDev/bevy", rev = "713b957bc159
 
 egui = "0.31"
 
-bevy_egui = { git = "https://github.com/MetabuildDev/bevy_egui", rev = "1e835dbff3b2a03a09bd10a73e270ea3aa5cf345", default-features = false }
+bevy_egui = { git = "https://github.com/MetabuildDev/bevy_egui", rev = "a4c47f102df1a9954e4278d799530b63283fa43e", default-features = false }
 
 bytemuck = "1.16.0"
 image = { version = "0.25", default-features = false }
